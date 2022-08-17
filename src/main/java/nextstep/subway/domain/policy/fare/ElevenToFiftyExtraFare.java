@@ -12,15 +12,15 @@ public class ElevenToFiftyExtraFare implements FarePolicy {
     private static final int FULL_FARE = 800;
 
     @Override
-    public boolean supports(PathByFare pathByFare) {
-        return pathByFare.distance() > MINIMUM_DISTANCE;
+    public boolean supports(FareCondition fareCondition) {
+        return fareCondition.distance() > MINIMUM_DISTANCE;
     }
 
     @Override
-    public int fare(PathByFare pathByFare) {
-        if (pathByFare.distance() >= MAXIMUM_DISTANCE) {
+    public int fare(FareCondition fareCondition) {
+        if (fareCondition.distance() >= MAXIMUM_DISTANCE) {
             return FULL_FARE;
         }
-        return (int) (Math.ceil((double) (pathByFare.distance() - MINIMUM_DISTANCE) / EXTRA_UNIT) * EXTRA_FARE);
+        return (int) (Math.ceil((double) (fareCondition.distance() - MINIMUM_DISTANCE) / EXTRA_UNIT) * EXTRA_FARE);
     }
 }

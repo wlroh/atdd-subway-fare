@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Builder
-public class PathByFare {
+public class FareCondition {
 
     private List<Line> lines;
     private int distance;

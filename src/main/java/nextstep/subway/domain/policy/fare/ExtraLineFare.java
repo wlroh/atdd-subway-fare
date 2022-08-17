@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 public class ExtraLineFare implements FarePolicy {
 
     @Override
-    public boolean supports(PathByFare pathByFare) {
+    public boolean supports(FareCondition fareCondition) {
         return true;
     }
 
     @Override
-    public int fare(PathByFare pathByFare) {
-        return pathByFare.lines()
+    public int fare(FareCondition fareCondition) {
+        return fareCondition.lines()
                 .stream()
                 .mapToInt(Line::getExtraFare)
                 .max()

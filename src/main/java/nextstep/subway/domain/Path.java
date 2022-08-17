@@ -2,7 +2,7 @@ package nextstep.subway.domain;
 
 import nextstep.member.domain.Member;
 import nextstep.subway.domain.policy.discount.DiscountCondition;
-import nextstep.subway.domain.policy.fare.PathByFare;
+import nextstep.subway.domain.policy.fare.FareCondition;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,14 +23,14 @@ public class Path {
     }
 
     public Fare extractFare(Member member) {
-        PathByFare pathByFare = generatePathByFare();
+        FareCondition fareCondition = generateFareCondition();
         return Fare.chaining()
-                .calculate(pathByFare)
+                .calculate(fareCondition)
                 .discount(DiscountCondition.of(member));
     }
 
-    private PathByFare generatePathByFare() {
-        return PathByFare.builder()
+    private FareCondition generateFareCondition() {
+        return FareCondition.builder()
                 .distance(sections.totalDistance())
                 .lines(extractLines())
                 .build();

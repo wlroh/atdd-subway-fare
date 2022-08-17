@@ -3,7 +3,7 @@ package nextstep.subway.domain;
 import nextstep.subway.domain.policy.discount.DiscountCondition;
 import nextstep.subway.domain.policy.discount.DiscountManager;
 import nextstep.subway.domain.policy.fare.FareManager;
-import nextstep.subway.domain.policy.fare.PathByFare;
+import nextstep.subway.domain.policy.fare.FareCondition;
 
 public class Fare {
 
@@ -19,11 +19,11 @@ public class Fare {
         return new Fare(0, false);
     }
 
-    public Fare calculate(PathByFare pathByFare) {
+    public Fare calculate(FareCondition fareCondition) {
         if (done) {
             throw new IllegalStateException();
         }
-        value += FareManager.fare(pathByFare);
+        value += FareManager.fare(fareCondition);
         return this;
     }
 

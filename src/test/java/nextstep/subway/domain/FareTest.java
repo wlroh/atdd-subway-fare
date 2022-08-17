@@ -3,7 +3,7 @@ package nextstep.subway.domain;
 import nextstep.member.domain.Guest;
 import nextstep.member.domain.Member;
 import nextstep.subway.domain.policy.discount.DiscountCondition;
-import nextstep.subway.domain.policy.fare.PathByFare;
+import nextstep.subway.domain.policy.fare.FareCondition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,24 +43,24 @@ class FareTest extends FarePolicyLoaderTest {
     @DisplayName("계산이 완료된 후 다시 계산을 할 수 없다.")
     void invalidCalculate_With_Done() {
         Member guest = new Guest();
-        PathByFare pathByFare = PathByFare.builder()
+        FareCondition fareCondition = FareCondition.builder()
                 .distance(10)
                 .lines(lines)
                 .build();
-        Fare fare = Fare.chaining().calculate(pathByFare).discount(DiscountCondition.of(guest));
+        Fare fare = Fare.chaining().calculate(fareCondition).discount(DiscountCondition.of(guest));
 
-        assertThatThrownBy(() -> fare.calculate(pathByFare)).isInstanceOf(IllegalStateException.class);
+        assertThatThrownBy(() -> fare.calculate(fareCondition)).isInstanceOf(IllegalStateException.class);
     }
 
     @Test
     @DisplayName("요금 계산을 하면 계산이 완료된다.")
     void calculate_done() {
         Member guest = new Guest();
-        PathByFare pathByFare = PathByFare.builder()
+        FareCondition fareCondition = FareCondition.builder()
                 .distance(10)
                 .lines(lines)
                 .build();
-        Fare fare = Fare.chaining().calculate(pathByFare).discount(DiscountCondition.of(guest));
+        Fare fare = Fare.chaining().calculate(fareCondition).discount(DiscountCondition.of(guest));
 
         assertThat(fare.toInt()).isEqualTo(2_150);
     }

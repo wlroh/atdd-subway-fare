@@ -1,9 +1,6 @@
 package nextstep.subway.domain.policy.fare;
 
 import nextstep.subway.domain.Line;
-import nextstep.subway.domain.policy.fare.ExtraLineFare;
-import nextstep.subway.domain.policy.fare.FarePolicy;
-import nextstep.subway.domain.policy.fare.PathByFare;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,18 +35,18 @@ class ExtraLineFareTest {
     @ParameterizedTest(name = "#{index} - 거리={0}km")
     @ValueSource(ints = {1, 10, 11, 50, 51})
     void support(int distance) {
-        PathByFare pathByFare = PathByFare.builder().distance(distance).build();
+        FareCondition fareCondition = FareCondition.builder().distance(distance).build();
 
-        assertThat(extraLineFare.supports(pathByFare)).isTrue();
+        assertThat(extraLineFare.supports(fareCondition)).isTrue();
     }
 
     @Test
     @DisplayName("여러 노선을 환승할 때 가장 높은 금액의 추가요금만 적용한다.")
     void fare() {
-        PathByFare pathByFare = PathByFare.builder()
+        FareCondition fareCondition = FareCondition.builder()
                 .lines(lines)
                 .build();
 
-        assertThat(extraLineFare.fare(pathByFare)).isEqualTo(900);
+        assertThat(extraLineFare.fare(fareCondition)).isEqualTo(900);
     }
 }

@@ -8,12 +8,12 @@ public class DefaultFare implements FarePolicy {
     private static final int DEFAULT_FARE = 1_250;
 
     @Override
-    public boolean supports(PathByFare pathByFare) {
+    public boolean supports(FareCondition fareCondition) {
         return true;
     }
 
     @Override
-    public int fare(PathByFare pathByFare) {
+    public int fare(FareCondition fareCondition) {
         return DEFAULT_FARE;
     }
 }
