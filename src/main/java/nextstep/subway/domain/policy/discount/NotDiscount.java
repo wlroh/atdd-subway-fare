@@ -1,11 +1,9 @@
 package nextstep.subway.domain.policy.discount;
 
-import nextstep.member.domain.Member;
-
 public class NotDiscount implements DiscountPolicy {
 
     @Override
-    public boolean supports(Member member) {
+    public boolean supports(DiscountCondition condition) {
         return false;
     }
 

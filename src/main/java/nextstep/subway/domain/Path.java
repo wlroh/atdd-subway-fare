@@ -1,6 +1,7 @@
 package nextstep.subway.domain;
 
 import nextstep.member.domain.Member;
+import nextstep.subway.domain.policy.discount.DiscountCondition;
 import nextstep.subway.domain.policy.fare.PathByFare;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class Path {
         PathByFare pathByFare = generatePathByFare();
         return Fare.chaining()
                 .calculate(pathByFare)
-                .discount(member);
+                .discount(DiscountCondition.of(member));
     }
 
     private PathByFare generatePathByFare() {

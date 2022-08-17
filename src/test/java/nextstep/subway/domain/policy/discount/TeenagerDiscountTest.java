@@ -26,9 +26,9 @@ class TeenagerDiscountTest {
         Member guest = new Guest();
 
         assertAll(() -> {
-            assertThat(teenagerDiscount.supports(teenager)).isTrue();
-            assertThat(teenagerDiscount.supports(adult)).isFalse();
-            assertThat(teenagerDiscount.supports(guest)).isFalse();
+            assertThat(teenagerDiscount.supports(DiscountCondition.of(teenager))).isTrue();
+            assertThat(teenagerDiscount.supports(DiscountCondition.of(adult))).isFalse();
+            assertThat(teenagerDiscount.supports(DiscountCondition.of(guest))).isFalse();
         });
     }
 

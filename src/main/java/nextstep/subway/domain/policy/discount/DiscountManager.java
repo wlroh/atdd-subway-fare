@@ -1,7 +1,5 @@
 package nextstep.subway.domain.policy.discount;
 
-import nextstep.member.domain.Member;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +20,15 @@ public class DiscountManager {
         }
     }
 
-    public static int discount(int fare, Member member) {
-        DiscountPolicy policy = findDiscount(member);
+    public static int discount(int fare, DiscountCondition condition) {
+        DiscountPolicy policy = findDiscount(condition);
         return policy.discount(fare);
     }
 
-    private static DiscountPolicy findDiscount(Member member) {
+    private static DiscountPolicy findDiscount(DiscountCondition condition) {
         return policies.stream().parallel()
-                .filter(discountPolicy -> discountPolicy.supports(member))
+                .filter(discountPolicy -> discountPolicy.supports(condition))
                 .findAny()
                 .orElse(new NotDiscount());
     }
-
 }

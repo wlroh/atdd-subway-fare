@@ -2,6 +2,7 @@ package nextstep.subway.domain;
 
 import nextstep.member.domain.Guest;
 import nextstep.member.domain.Member;
+import nextstep.subway.domain.policy.discount.DiscountCondition;
 import nextstep.subway.domain.policy.fare.PathByFare;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -46,7 +47,7 @@ class FareTest extends FarePolicyLoaderTest {
                 .distance(10)
                 .lines(lines)
                 .build();
-        Fare fare = Fare.chaining().calculate(pathByFare).discount(guest);
+        Fare fare = Fare.chaining().calculate(pathByFare).discount(DiscountCondition.of(guest));
 
         assertThatThrownBy(() -> fare.calculate(pathByFare)).isInstanceOf(IllegalStateException.class);
     }
@@ -59,7 +60,7 @@ class FareTest extends FarePolicyLoaderTest {
                 .distance(10)
                 .lines(lines)
                 .build();
-        Fare fare = Fare.chaining().calculate(pathByFare).discount(guest);
+        Fare fare = Fare.chaining().calculate(pathByFare).discount(DiscountCondition.of(guest));
 
         assertThat(fare.toInt()).isEqualTo(2_150);
     }
